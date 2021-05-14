@@ -1,0 +1,65 @@
+Release Notes for MSP430-GCC 
+=============================
+Date: 2018-11-26
+  
+New features / changes:
+----------------------
+- Component versions:
+    - GCC 7.3.1
+    - GDB 8.1
+    - binutils 2.26
+    - Newlib 2.4.0
+    - MSPDebugStack 3.13.1.000
+    - MSP430 header and support files 1.206
+    - MSP430 GDB Agent 8.0.809.0
+
+- Updates to GCC compiler
+    - Added the latest GCC 7 patches.
+    - Fixed a rare case where GCC generates the wrong relocation type for data when
+      the large memory model is in use.
+    - Fixed wrong code being generated when GCC is required to perform a zero
+      extension from an 8-bit type to a 32-bit type.
+    - Fixed devices.csv read errors on Windows when passing a path containing
+      backslashes as path separators to the -I or -L options.
+    - Fixed errors when using the transparent_union attribute on unions
+      containing __int20 types.
+    - Fixed sub-optimal code being generated when operating on unions where the
+      widest type is __int20.
+    - Fixed the -fleading-underscore option having no effect.
+    - Marked the -ftrapv option as unsupported for MSP430.
+    - Disabled "control reaches end of non-void function" warning for functions
+      marked with the "naked" attribute.
+    - GDB now uses the MSP430X architecture by default. This fixes errors
+      when flashing hex files utilising addresses above 0xFFFF.
+    - Fixed architecture changes in GDB initiated with "set architecture" having no
+      effect on the internal memory model.
+    - Fixed BFD assertion failures when using the --write option with some
+      executables.
+    - Fixed objcopy not making identical copies of ELF files when the first memory
+      segment in the output file contains only SHT_NOBITS sections.
+    - Fixed the assembler so that it detects and reports extraneous text at
+      the end of operands.
+    - Fixed bogus section names in linker map file for sections originating from
+      prebuilt libraries, which have been transformed using the
+      --code-region={lower,upper} linker options.
+    - Fixed duplicate warnings emitted by the linker when there is no output
+      section name to match the result of a section transformation to the lower
+      or upper regions.
+    - Fixed the assembler treating symbol names starting with a register name
+      as registers e.g. an operand "R12XXXX" is no longer treated as a register.
+    - Moved the "data" memory region origin address in the built-in MSP430
+      linker scripts above the hardware multiply address range.
+    - Fixed missing symbol definitions in the built-in MSP430 linker scripts, so
+      programs will successfully link without additional options such as -msim.
+    - Improved the disassembler's handling of memory read errors.
+    - Fixed typo ".MP430.attributes" in MSP430 simulator linker scripts.
+    - Change use of DEBUG symbol in sys/reent.h to _REENT_CHECK_DEBUG to fix
+      compilation error when a symbol "DEBUG" is defined without any value.
+    
+Known Issues:
+---------------
+    - The msp430-elf-gdb cannot program images that contain data in high-memory properly.
+    - The download speed on MSP430 Flash devices is slow.
+    - The GDB Agent is not able to connect to MSP430L092 target devices.
+    - The GDB Agent is not able to connect to RF430FRL15xH target devices.
+
